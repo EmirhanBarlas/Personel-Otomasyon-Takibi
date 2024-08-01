@@ -13,7 +13,7 @@ namespace Personel
 {
     public partial class Form1 : Form
     {
-        sqlbaglanti bgl = new sqlbaglanti();
+        Sqlbaglanti bgl = new Sqlbaglanti();
         public Form1()
         {
             InitializeComponent();
@@ -26,6 +26,7 @@ namespace Personel
             SqlDataAdapter da = new SqlDataAdapter($"Select * From {SqlTables.Personel}", bgl.Connection());
             da.Fill(dt);
             gridControl1.DataSource = dt;
+            bgl.Connection().Close();
         }
         private void IdList()
         {
@@ -45,12 +46,14 @@ namespace Personel
             SqlCommand cek = new SqlCommand($"SELECT COUNT (*) FROM {SqlTables.Personel}", bgl.Connection());
             int TotalPersonel = (int)cek.ExecuteScalar();
             total.Text = "TOPLAM PERSONEL SAYISI: " + TotalPersonel.ToString();
+            bgl.Connection().Close();
         }
         private void AvgPersonelAge()
         {
             SqlCommand cek = new SqlCommand($"SELECT AVG(Yas) FROM {SqlTables.Personel}", bgl.Connection());
             int AvgPersonelAge = (int)cek.ExecuteScalar();
             avg.Text = "ORTALAMA PERSONEL YASI: " + AvgPersonelAge.ToString();
+            bgl.Connection().Close();
         }
         //metods end
 
@@ -93,7 +96,6 @@ namespace Personel
             Listele();
             Thread.Sleep(100);
             temizle();
-            bgl.Connection().Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -127,11 +129,11 @@ namespace Personel
             }
             catch (SqlException ex)
             {
-                MessageBox.Show("Hatalý Giriþ: Lütfen Kontrol Saðlayýnýz.", "HATA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Hatalý Giriþ: Lütfen Kontrol Saðlayýnýz. {ex.Message}", "HATA", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (FormatException ex)
             {
-                MessageBox.Show("Hatalý giriþ: Lütfen yaþ alanýna geçerli bir sayý deðeri giriniz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Hatalý giriþ: Lütfen yaþ alanýna geçerli bir sayý deðeri giriniz. {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

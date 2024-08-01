@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Personel
 {
-    public static class config
+    public static class Config
     {
         public const string version = "1.0.0.0";
         public const string author = "Emirhan Barlas";

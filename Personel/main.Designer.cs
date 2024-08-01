@@ -488,12 +488,14 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(1190, 671);
             Controls.Add(simpleButton1);
             Controls.Add(panel1);
             Controls.Add(xtraTabControl1);
             Controls.Add(gridControl1);
             ForeColor = SystemColors.ControlText;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "Personel Otomayon Sistemi";
             Load += Form1_Load;
